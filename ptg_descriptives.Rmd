@@ -14,9 +14,9 @@ library(readxl)
 ```
 
 # Load Data
-In the main analysis this should be T1 Raw
+Load T1 Raw for main-analysis
 ```{r}
-ptg_effect_sizes <- read_excel("ptg effect sizes.xlsx")
+ptg_effect_sizes <- read_excel("Covid T1 Raw.xlsx")
 head(ptg_effect_sizes)   
 ```
 
