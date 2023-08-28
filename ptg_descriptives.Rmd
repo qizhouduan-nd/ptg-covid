@@ -1,5 +1,5 @@
 ---
-title: "ptg meta analysis descriptives"
+title: "PTG Meta-Analysis RScripts Report"
 author: "Qizhou Duan"
 date: "2023-08-19"
 output: pdf_document
@@ -14,54 +14,14 @@ library(readxl)
 ```
 
 # Load Data
-Load T1 Raw for main-analysis
+Loading data, select variables for main analysis
 ```{r}
-ptg_effect_sizes <- read_excel("Covid T1 Raw.xlsx")
-head(ptg_effect_sizes)   
+## load data
+shortlist = read_excel('ptg_shortlist.xlsx')
+t1_raw = read_excel('Covid T1 Raw.xlsx')
+
+## select variables for main analysis
+main_data = merge(shortlist, t1_raw,by = 'Source') %>% 
+  select(Source, 'scale type', 'effect size', 'sd', 'sample size', 
+         'Groups with PTG', 'Countries of Origin') 
 ```
-
-# how many measures are we considering
-```{r}
-## print out the scale types
-unique(ptg_effect_sizes$`scale type`)
-## how many 
-length(unique(ptg_effect_sizes$`scale type`)) - 2
-## group by scale types and examine
-ptg_effect_sizes %>% group_by(`scale type`) %>% count() 
-```
-NA is the additional column where I summed all the sample sizes and thus should not be included as a study; I will fix it later. 
-
-In total we can see that we have got 13 studies with PTGI (PTG-21 is PTGI), 8 studies with PTGI-SF; 
-
-The standard deviations I am in the process of enteringt them in for calculating effect sizes. 
-
-# get numbers from all PTGI-measures
-## overview of the ptgi studies
-```{r}
-ptgi_studies = ptg_effect_sizes %>% filter(`scale type` == 'PTGI' | `scale type` == 'PTG-21')
-ptgi_studies
-```
-
-## descriptives for ptgi measures
-```{r}
-describe(as.numeric(ptgi_studies$`effect size`))
-```
-
-# get numbers from all PTGI-SF measures
-```{r}
-ptgisf_studies = ptg_effect_sizes %>% filter(`scale type` == 'PTGI-SF')
-ptgisf_studies
-```
-
-## descriptives for ptgi-sf measures
-```{r}
-describe(as.numeric(ptgi_studies$`effect size`))
-```
-This needs a bit more work as some of the PTGI-SF studies reported the average score of each item instead of summing all the items; at the same time two studies reported percentages instead of actuall ptgi-sf values. 
-
-
-
-
-
-
-
