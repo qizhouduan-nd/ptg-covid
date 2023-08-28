@@ -4,6 +4,7 @@
 library(tidyverse)
 library(readxl)
 library(metafor)
+library(psych)
 setwd(dirname(rstudioapi::documentPath()))
 
 ## load data
@@ -52,10 +53,30 @@ main_analysis_model_PTGI
 ## significant positive change
 
 ### now for PTGISF
+head(PTGISF_dat)
+PTGISF_num = sum((PTGISF_dat$`sample size` - 1) * PTGISF_dat$sd^2)
+PTGISF_denom = sum(PTGISF_dat$`sample size`) - length(PTGISF_dat$`sample size`)
+PTGISF_sp = PTGISF_num / PTGISF_denom
+PTGISF_pooled_sd = sqrt(PTGISF_sp)
+PTGISF_pooled_sd
+## based on literature 15 is a reasonable cutoff point, and we use it with the pooled sd
+## we use hedges' g 
+cutoff = 2.15 * 10
+complete_PTGISF_dat = PTGISF_dat %>% 
+  mutate(g = (`effect size` - cutoff) / PTGISF_pooled_sd) %>% 
+  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1))) # consider using escalc
 
+## now we have the ingredient to perform meta analysis
+complete_PTGISF_dat[,c('g', 'v_g')]
 
+## we run intercept only model for main analysis (this would be random intercept model)
+main_analysis_model_PTGISF = rma(g ~ 1, vi = v_g, data = complete_PTGISF_dat)
+main_analysis_model_PTGISF
 
+## get how many studies is from which country
+main_data %>% group_by(`Countries of Origin`) %>% count() %>% arrange(desc(n))
 
-
+## sample size ranges from 
+describe(main_data$`sample size`)
 
 
