@@ -25,3 +25,14 @@ main_data = merge(shortlist, t1_raw,by = 'Source') %>%
   select(Source, 'scale type', 'effect size', 'sd', 'sample size', 
          'Groups with PTG', 'Countries of Origin') 
 ```
+
+# Initial inspection of the data
+## PTGI and PTGI-SF
+```{r}
+main_data %>% group_by(`scale type`) %>% count()
+```
+
+## Total Sample Size
+```{r}
+sum(main_data$`sample size`)
+```
