@@ -89,10 +89,15 @@ sp_num = (male_n - 1) * male_sd^2 + (female_n - 1) * female_sd^2
 sp_denom = male_n + female_n - 2
 
 sp_arnout = sp_num / sp_denom
-sd_p_arnout = sqrt(sp_adj)
+sd_p_arnout = sqrt(sp_arnout)
 sd_p_arnout
 
 arnout_mean = (male_m * male_n + female_m * female_n) / (male_n + female_n)
 arnout_mean
 
 round(c(arnout_mean, sd_p_arnout) ,3)
+
+### Yeung
+round(c(2.19 * 10, sqrt(0.97^2 * 10^2)), 2)
+
+
