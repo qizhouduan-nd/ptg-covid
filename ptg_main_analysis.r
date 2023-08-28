@@ -48,6 +48,23 @@ sp = sp_num / sp_denom
 sd_p = sqrt(sp)
 sd_p
 
+## adj study male and female average
+male_n = 226
+female_n = 155
+
+male_m = 21.68
+female_m = 23.1
+
+male_sd = 5.38
+female_sd = 4.53
+
+sp_num = (male_n - 1) * male_sd^2 + (female_n - 1) * female_sd^2 
+sp_denom = male_n + female_n - 2
+
+sp_adj = sp_num / sp_denom
+sd_p_adj = sqrt(sp_adj)
+sd_p_adj
+
 
 
 
