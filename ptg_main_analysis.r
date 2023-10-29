@@ -24,59 +24,42 @@ main_data %>% group_by(`scale type`) %>% count() # 13 effect sizes uses PTGI 6 u
 sum(main_data$`sample size`) ## overall
 PTGI_dat = main_data %>% filter(`scale type` == 'PTGI')
 PTGISF_dat = main_data %>% filter(`scale type` != 'PTGI')
-sum(PTGI_dat$`sample size`)
-sum(PTGISF_dat$`sample size`)
 
-## let's do meta analysis for the PTGI studies
-head(PTGI_dat)
+################################################################
+################################################################
+################################################################
+#### stretch PTGI-SF 
+PTGISF_transformed = PTGISF_dat %>% mutate(`effect size` = `effect size` / 10 * 21) %>% 
+  mutate(sd = sqrt(sd^2 * 2.1^2)) 
+PTGISF_transformed
+PTGI = rbind(PTGI_dat, PTGISF_transformed)
+
+### start analysis with all the studies (PTGI gets successfully transformed)
 PTGI_num = sum((PTGI_dat$`sample size` - 1) * PTGI_dat$sd^2)
 PTGI_denom = sum(PTGI_dat$`sample size`) - length(PTGI_dat$`sample size`)
 PTGI_sp = PTGI_num / PTGI_denom
 PTGI_pooled_sd = sqrt(PTGI_sp)
 PTGI_pooled_sd
-## based on literature 45 is a reasonable cutoff point, and we use it with the pooled sd
-## we use hedges' g 
+
 cutoff = 45
-complete_PTGI_dat = PTGI_dat %>% 
+PTGI_g = PTGI %>% 
+  mutate(PTGI_num = (sum(`sample size`) - 1) * sd^2) %>% 
+  mutate(PTGI_denom = sum(`sample size`) - length(`sample size`)) %>% 
+  mutate(PTGI_pooled_sd = sqrt(PTGI_num / PTGI_denom)) %>% 
   mutate(g = (`effect size` - cutoff) / PTGI_pooled_sd) %>% 
   mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1)))
 
 ## now we have the ingredient to perform meta analysis
-complete_PTGI_dat[,c('g', 'v_g')]
+PTGI_g[,c('g', 'v_g')]
 
 ## we run intercept only model for main analysis (this would be random intercept model)
-main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = complete_PTGI_dat)
+main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = PTGI_g)
 main_analysis_model_PTGI
-## overall, high heterogeneity so we can be assured that the random intercept model is correct
-## for more accurate indicator of heterogeneity, we consult tau square
-## also high heterogeneity is an incentive to conduct subgroup analysis
-## significant positive change
 
-### now for PTGISF
-head(PTGISF_dat)
-PTGISF_num = sum((PTGISF_dat$`sample size` - 1) * PTGISF_dat$sd^2)
-PTGISF_denom = sum(PTGISF_dat$`sample size`) - length(PTGISF_dat$`sample size`)
-PTGISF_sp = PTGISF_num / PTGISF_denom
-PTGISF_pooled_sd = sqrt(PTGISF_sp)
-PTGISF_pooled_sd
-## based on literature 15 is a reasonable cutoff point, and we use it with the pooled sd
-## we use hedges' g 
-cutoff = 2.15 * 10
-complete_PTGISF_dat = PTGISF_dat %>% 
-  mutate(g = (`effect size` - cutoff) / PTGISF_pooled_sd) %>% 
-  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1))) # consider using escalc
 
-## now we have the ingredient to perform meta analysis
-complete_PTGISF_dat[,c('g', 'v_g')]
 
-## we run intercept only model for main analysis (this would be random intercept model)
-main_analysis_model_PTGISF = rma(g ~ 1, vi = v_g, data = complete_PTGISF_dat)
-main_analysis_model_PTGISF
 
-## get how many studies is from which country
-main_data %>% group_by(`Countries of Origin`) %>% count() %>% arrange(desc(n))
 
-## sample size ranges from 
-describe(main_data$`sample size`)
+
 
 
