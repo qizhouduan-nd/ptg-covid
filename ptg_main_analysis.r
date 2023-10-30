@@ -56,9 +56,11 @@ PTGI_g[,c('g', 'v_g')]
 main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = PTGI_g)
 main_analysis_model_PTGI
 
-
-
-
+## check a few descriptives
+View(PTGI_g)
+sum(PTGI_g$`sample size`) + 10000
+## mean PTGI score
+range(PTGI_g$`effect size`)
 
 
 
