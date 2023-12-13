@@ -11,19 +11,19 @@ setwd(dirname(rstudioapi::documentPath()))
 shortlist = read_excel('ptg_shortlist.xlsx')
 t1_raw = read_excel('Covid T1 Raw.xlsx')
 
-## select variables for main analysis
-main_data = merge(shortlist, t1_raw,by = 'Source') %>% 
-  dplyr::select('Source', 'scale type', 'effect size', 'sd', 'sample size', 
-         'Groups with PTG', 'Countries of Origin')
+# ## select variables for main analysis
+# main_data = merge(shortlist, t1_raw,by = 'Source') %>% 
+#   dplyr::select('Source', 'scale type', 'effect size', 'sd', 'sample size', 
+#          'Groups with PTG', 'Countries of Origin')
 
 ## look at how many studies uses PTGI
-main_data %>% group_by(`scale type`) %>% count() # 13 effect sizes uses PTGI 6 uses PTGI-SF
+shortlist %>% group_by(`scale type`) %>% count() # 20 PTGI and 10 PTGI-SF 
 
 ## we can do normalization or we can perform separate analysis for these two types of studies
 ## check the sample size
-sum(main_data$`sample size`) ## overall
-PTGI_dat = main_data %>% filter(`scale type` == 'PTGI')
-PTGISF_dat = main_data %>% filter(`scale type` != 'PTGI')
+sum(shortlist$`sample size`) ## overall
+PTGI_dat = shortlist %>% filter(`scale type` == 'PTGI')
+PTGISF_dat = shortlist %>% filter(`scale type` != 'PTGI')
 
 ################################################################
 ################################################################
@@ -32,7 +32,7 @@ PTGISF_dat = main_data %>% filter(`scale type` != 'PTGI')
 PTGISF_transformed = PTGISF_dat %>% mutate(`effect size` = `effect size` / 10 * 21) %>% 
   mutate(sd = sqrt(sd^2 * 2.1^2)) 
 PTGISF_transformed
-PTGI = rbind(PTGI_dat, PTGISF_transformed)
+PTGI = rbind(PTGI_dat, PTGISF_transformed) %>% select(`effect size`, sd, `sample size`)
 
 ### start analysis with all the studies (PTGI gets successfully transformed)
 PTGI_num = sum((PTGI_dat$`sample size` - 1) * PTGI_dat$sd^2)
