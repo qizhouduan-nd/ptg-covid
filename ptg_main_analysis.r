@@ -9,13 +9,6 @@ setwd(dirname(rstudioapi::documentPath()))
 
 ## load data
 shortlist = read_excel('ptg_shortlist.xlsx')
-t1_raw = read_excel('Covid T1 Raw.xlsx')
-
-# ## select variables for main analysis
-# main_data = merge(shortlist, t1_raw,by = 'Source') %>% 
-#   dplyr::select('Source', 'scale type', 'effect size', 'sd', 'sample size', 
-#          'Groups with PTG', 'Countries of Origin')
-
 ## look at how many studies uses PTGI
 shortlist %>% group_by(`scale type`) %>% count() # 20 PTGI and 10 PTGI-SF 
 
@@ -25,7 +18,6 @@ sum(shortlist$`sample size`) ## overall
 PTGI_dat = shortlist %>% filter(`scale type` == 'PTGI')
 PTGISF_dat = shortlist %>% filter(`scale type` != 'PTGI')
 
-################################################################
 ################################################################
 ################################################################
 #### stretch PTGI-SF 
@@ -57,10 +49,10 @@ main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = PTGI_g)
 main_analysis_model_PTGI
 
 ## check a few descriptives
-View(PTGI_g)
-sum(PTGI_g$`sample size`) + 10000
-## mean PTGI score
-range(PTGI_g$`effect size`)
+describe(PTGI_g)
+describe(PTGI_g$g)
+
+
 
 
 
