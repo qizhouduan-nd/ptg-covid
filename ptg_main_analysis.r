@@ -11,7 +11,7 @@ setwd(dirname(rstudioapi::documentPath()))
 shortlist = read_excel('ptg_shortlist.xlsx')
 ## look at how many studies uses PTGI
 shortlist %>% group_by(`scale type`) %>% count() # 20 PTGI and 10 PTGI-SF 
-
+table(shortlist$PTSD)
 ## we can do normalization or we can perform separate analysis for these two types of studies
 ## check the sample size
 sum(shortlist$`sample size`) ## overall
@@ -24,7 +24,7 @@ PTGISF_dat = shortlist %>% filter(`scale type` != 'PTGI')
 PTGISF_transformed = PTGISF_dat %>% mutate(`effect size` = `effect size` / 10 * 21) %>% 
   mutate(sd = sqrt(sd^2 * 2.1^2)) 
 PTGISF_transformed
-PTGI = rbind(PTGI_dat, PTGISF_transformed) %>% select(`effect size`, sd, `sample size`)
+PTGI = rbind(PTGI_dat, PTGISF_transformed) %>% select(`Source`,`effect size`, sd, `sample size`, `PTSD`)
 
 ### start analysis with all the studies (PTGI gets successfully transformed)
 PTGI_num = sum((PTGI_dat$`sample size` - 1) * PTGI_dat$sd^2)
@@ -39,7 +39,8 @@ PTGI_g = PTGI %>%
   mutate(PTGI_denom = sum(`sample size`) - length(`sample size`)) %>% 
   mutate(PTGI_pooled_sd = sqrt(PTGI_num / PTGI_denom)) %>% 
   mutate(g = (`effect size` - cutoff) / PTGI_pooled_sd) %>% 
-  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1)))
+  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1))) %>% 
+  mutate(PTSD = ifelse(`PTSD` == 'Yes', 1,0 ))
 
 ## now we have the ingredient to perform meta analysis
 PTGI_g[,c('g', 'v_g')]
@@ -52,6 +53,11 @@ main_analysis_model_PTGI
 describe(PTGI_g)
 describe(PTGI_g$g)
 
+## subgroup analysis for PTSD
+PTGI_PTSD = rma(g ~ PTSD, vi = v_g, data = PTGI_g)
+PTGI_PTSD
+
+PTGI_g %>% filter(`PTSD` == 1) %>% select(`Source`)
 
 
 
