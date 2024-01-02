@@ -57,9 +57,10 @@ describe(PTGI_g$g)
 PTGI_PTSD = rma(g ~ PTSD, vi = v_g, data = PTGI_g)
 PTGI_PTSD
 
-PTGI_g %>% filter(`PTSD` == 1) %>% select(`Source`)
-
-
+ptsd_sample = PTGI_g %>% filter(`PTSD` == 1) %>% select(`Source`, `sample size`)
+sum(ptsd_sample$`sample size`)
+## forest plot
+forest(main_analysis_model_PTGI, )
 
 
 
