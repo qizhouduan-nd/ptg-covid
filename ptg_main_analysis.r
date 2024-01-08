@@ -49,6 +49,8 @@ PTGI_g[,c('g', 'v_g')]
 main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = PTGI_g)
 main_analysis_model_PTGI
 
+escalc()
+
 ## check a few descriptives
 describe(PTGI_g)
 describe(PTGI_g$g)
@@ -60,7 +62,21 @@ PTGI_PTSD
 ptsd_sample = PTGI_g %>% filter(`PTSD` == 1) %>% select(`Source`, `sample size`)
 sum(ptsd_sample$`sample size`)
 ## forest plot
-forest(main_analysis_model_PTGI, )
+forest(main_analysis_model_PTGI, 
+       header="Author(s) and Year", mlab="", shade=TRUE,
+       cex=0.75)
 
+## escalc portion
+SMD_es <- escalc(measure = "SMD",
+                 m1i = `effect size`,
+                 sd1i = `sd`,
+                 n1i = `sample size`,
+                 m2i = rep(45,30),
+                 sd2i = `sd`,
+                 n2i = `sample size`,
+                 data = PTGI,
+                 var.names = c("smd", "varsmd"))
 
-
+res = rma(yi = smd, vi = varsmd, data = SMD_es)
+forest(res, cex=0.7, 
+       header="Author(s) and Year", mlab="", shade=TRUE, slab = SMD_es$Source)
