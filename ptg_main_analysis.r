@@ -49,7 +49,6 @@ PTGI_g[,c('g', 'v_g')]
 main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = PTGI_g)
 main_analysis_model_PTGI
 
-escalc()
 
 ## check a few descriptives
 describe(PTGI_g)
@@ -80,3 +79,7 @@ SMD_es <- escalc(measure = "SMD",
 res = rma(yi = smd, vi = varsmd, data = SMD_es)
 forest(res, cex=0.7, 
        header="Author(s) and Year", mlab="", shade=TRUE, slab = SMD_es$Source)
+
+
+
+
