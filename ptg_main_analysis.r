@@ -93,9 +93,11 @@ res = rma(yi = smd, vi = varsmd, data = SMD_es)
 forest(res, cex=0.7, 
        header="Author(s) and Year", mlab="", shade=TRUE, slab = SMD_es$Source)
 
-## create tables for subgroup analysis
+## create tables for subgroup analysis (table 3 in the manuscript)
 
-
+PTGI %>% 
+  kbl(caption = 'Table 3 : Overview of the selected studies for subgroup analysis') %>% 
+  kable_classic(full_width = F, html_font = "Cambria")
 
 
 
