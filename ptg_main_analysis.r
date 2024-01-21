@@ -26,7 +26,7 @@ PTGISF_transformed = PTGISF_dat %>% mutate(`effect size` = `effect size` / 10 * 
   mutate(sd = sqrt(sd^2 * 2.1^2)) 
 PTGISF_transformed
 PTGI = rbind(PTGI_dat, PTGISF_transformed) %>% 
-  select(`Source`,`effect size`, sd, `sample size`, 
+  select(`Source`, `Publication Year`, `Male%`, `Mean Age` ,`effect size`, sd, `sample size`, 
          `PTSD`, Anxiety, Depression, `Social Support`,
          `Coping`, `Sprituality/Religion`)
 
@@ -35,7 +35,9 @@ PTGI = PTGI %>% mutate(Anxiety = ifelse(Anxiety == 'yes',1,0)) %>%
   mutate(`Social Support` = ifelse(`Social Support` == 'yes',1,0)) %>%
   mutate(`Coping` = ifelse(`Coping` == 'yes',1,0)) %>% 
   mutate(`Sprituality/Religion` = ifelse(`Sprituality/Religion` == 'yes',1,0)) %>% 
-  mutate(PTSD = ifelse(PTSD == 'Yes',1,0)) 
+  mutate(PTSD = ifelse(PTSD == 'Yes',1,0)) %>% 
+  mutate(`Male%` = round(as.numeric(`Male%`),2)) %>% 
+  mutate(`Mean Age` = round(as.numeric(`Mean Age`),2))
 
 View(PTGI)
 
@@ -94,15 +96,27 @@ forest(res, cex=0.7,
        header="Author(s) and Year", mlab="", shade=TRUE, slab = SMD_es$Source)
 
 ## create tables for subgroup analysis (table 3 in the manuscript)
+# Source	Year	Sample size	Male,%	Age (mean)	End Point	Follow up, y	Determinant
+PTGI_subgroup = PTGI %>% select("Source", "Publication Year", "sample size","Male%", "Mean Age",
+                                "PTSD", "Anxiety", "Depression", "Social Support", "Coping",
+                                "Sprituality/Religion")
+PTGI_subgroup  %>% 
+  kbl() %>% 
+  kable_classic(full_width = F, html_font = "Cambria")
 
-PTGI %>% 
-  kbl(caption = 'Table 3 : Overview of the selected studies for subgroup analysis') %>% 
+## create tables for main analysis (table 1 in the manuscript)
+PTGI_main_analysis_table = PTGI %>% select(Source, `Publication Year`, 
+                                           `sample size`, `Male%`, `Mean Age`,
+                                           `effect size`, sd) %>% 
+  mutate(`effect size` = round(`effect size`,2)) %>% 
+  mutate(sd = round(sd,2))
+
+PTGI_main_analysis_table %>% 
+  kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria")
 
 
-
-
-
+### more subgroup analysis
 
 
 
