@@ -5,6 +5,7 @@ library(tidyverse)
 library(readxl)
 library(metafor)
 library(psych)
+library(kableExtra)
 setwd(dirname(rstudioapi::documentPath()))
 
 ## load data
@@ -24,7 +25,19 @@ PTGISF_dat = shortlist %>% filter(`scale type` != 'PTGI')
 PTGISF_transformed = PTGISF_dat %>% mutate(`effect size` = `effect size` / 10 * 21) %>% 
   mutate(sd = sqrt(sd^2 * 2.1^2)) 
 PTGISF_transformed
-PTGI = rbind(PTGI_dat, PTGISF_transformed) %>% select(`Source`,`effect size`, sd, `sample size`, `PTSD`)
+PTGI = rbind(PTGI_dat, PTGISF_transformed) %>% 
+  select(`Source`,`effect size`, sd, `sample size`, 
+         `PTSD`, Anxiety, Depression, `Social Support`,
+         `Coping`, `Sprituality/Religion`)
+
+PTGI = PTGI %>% mutate(Anxiety = ifelse(Anxiety == 'yes',1,0)) %>% 
+  mutate(Depression = ifelse(Depression == 'yes',1,0)) %>% 
+  mutate(`Social Support` = ifelse(`Social Support` == 'yes',1,0)) %>%
+  mutate(`Coping` = ifelse(`Coping` == 'yes',1,0)) %>% 
+  mutate(`Sprituality/Religion` = ifelse(`Sprituality/Religion` == 'yes',1,0)) %>% 
+  mutate(PTSD = ifelse(PTSD == 'Yes',1,0)) 
+
+View(PTGI)
 
 ### start analysis with all the studies (PTGI gets successfully transformed)
 PTGI_num = sum((PTGI_dat$`sample size` - 1) * PTGI_dat$sd^2)
@@ -79,6 +92,16 @@ SMD_es <- escalc(measure = "SMD",
 res = rma(yi = smd, vi = varsmd, data = SMD_es)
 forest(res, cex=0.7, 
        header="Author(s) and Year", mlab="", shade=TRUE, slab = SMD_es$Source)
+
+## create tables for subgroup analysis
+
+
+
+
+
+
+
+
 
 
 
