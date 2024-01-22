@@ -54,8 +54,7 @@ PTGI_g = PTGI %>%
   mutate(PTGI_denom = sum(`sample size`) - length(`sample size`)) %>% 
   mutate(PTGI_pooled_sd = sqrt(PTGI_num / PTGI_denom)) %>% 
   mutate(g = (`effect size` - cutoff) / PTGI_pooled_sd) %>% 
-  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1))) %>% 
-  mutate(PTSD = ifelse(`PTSD` == 'Yes', 1,0 ))
+  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1)))
 
 ## now we have the ingredient to perform meta analysis
 PTGI_g[,c('g', 'v_g')]
@@ -117,6 +116,66 @@ PTGI_main_analysis_table %>%
 
 
 ### more subgroup analysis
+PTGI_Anxiety = rma(g ~ Anxiety, vi = v_g, data = PTGI_g)
+PTGI_Anxiety
+
+PTGI_Depression = rma(g ~ Depression, vi = v_g, data = PTGI_g)
+PTGI_Depression
+
+PTGI_Support = rma(g ~ `Social Support`, vi = v_g, data = PTGI_g)
+PTGI_Support
+
+PTGI_Coping = rma(g ~ `Coping`, vi = v_g, data = PTGI_g)
+PTGI_Coping
+
+PTGI_religion = rma(g ~ `Sprituality/Religion`, vi = v_g, data = PTGI_g)
+PTGI_religion
+
+PTGI_Age = rma(g ~ `Mean Age`, vi = v_g, data = PTGI_g)
+PTGI_Age
+
+PTGI_Gender = rma(g ~ `Male%`, vi = v_g, data = PTGI_g)
+PTGI_Gender
+
+## making table 4 
+Correlate = c("Anxiety", "Depression", "PTSD", 
+              "Social Support", "Coping", "Sprituality/Religion")
+
+K = c(sum(PTGI_g$Anxiety),
+sum(PTGI_g$Depression),
+sum(PTGI_g$PTSD),
+sum(PTGI_g$`Social Support`),
+sum(PTGI_g$Coping),
+sum(PTGI_g$`Sprituality/Religion`))
+
+N = c(sum(PTGI_g %>% filter(Anxiety == 1) %>% select("sample size")),
+sum(PTGI_g %>% filter(Depression == 1) %>% select("sample size")),
+sum(PTGI_g %>% filter(PTSD == 1) %>% select("sample size")),
+sum(PTGI_g %>% filter(`Social Support` == 1) %>% select("sample size")),
+sum(PTGI_g %>% filter(Coping == 1) %>% select("sample size")),
+sum(PTGI_g %>% filter(`Sprituality/Religion` == 1) %>% select("sample size")))
+
+ES = round(c(PTGI_Anxiety$beta[2], PTGI_Depression$beta[2], PTGI_PTSD$beta[2],
+       PTGI_Support$beta[2], PTGI_Coping$beta[2], PTGI_religion$beta[2]),2)
+
+
+CI_lower = round(c(PTGI_Anxiety$ci.lb[2], PTGI_Depression$ci.lb[2], PTGI_PTSD$ci.lb[2],
+             PTGI_Support$ci.lb[2], PTGI_Coping$ci.lb[2], PTGI_religion$ci.lb[2]),2)
+CI_upper = round(c(PTGI_Anxiety$ci.ub[2], PTGI_Depression$ci.ub[2], PTGI_PTSD$ci.ub[2],
+                   PTGI_Support$ci.ub[2], PTGI_Coping$ci.ub[2], PTGI_religion$ci.ub[2]),2)
+
+I2 = round(c(PTGI_Anxiety$I2, PTGI_Depression$I2, PTGI_PTSD$I2,
+             PTGI_Support$I2, PTGI_Coping$I2, PTGI_religion$I2),2)
+
+table4_content = data.frame(Correlate, K, N, ES, CI_lower, CI_upper, I2)
+
+table4_content %>% 
+  kbl() %>% 
+  kable_classic(full_width = F, html_font = "Cambria")
+
+
+
+
 
 
 
