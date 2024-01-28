@@ -26,7 +26,7 @@ PTGISF_transformed = PTGISF_dat %>% mutate(`effect size` = `effect size` / 10 * 
   mutate(sd = sqrt(sd^2 * 2.1^2)) 
 PTGISF_transformed
 PTGI = rbind(PTGI_dat, PTGISF_transformed) %>% 
-  select(`Source`, `Publication Year`, `Male%`, `Mean Age` ,`effect size`, sd, `sample size`, 
+  dplyr::select(`Source`, `Publication Year`, `Male%`, `Mean Age` ,`effect size`, sd, `sample size`, 
          `PTSD`, Anxiety, Depression, `Social Support`,
          `Coping`, `Sprituality/Religion`)
 
@@ -96,7 +96,7 @@ forest(res, cex=0.7,
 
 ## create tables for subgroup analysis (table 3 in the manuscript)
 # Source	Year	Sample size	Male,%	Age (mean)	End Point	Follow up, y	Determinant
-PTGI_subgroup = PTGI %>% select("Source", "Publication Year", "sample size","Male%", "Mean Age",
+PTGI_subgroup = PTGI %>% dplyr::select("Source", "Publication Year", "sample size","Male%", "Mean Age",
                                 "PTSD", "Anxiety", "Depression", "Social Support", "Coping",
                                 "Sprituality/Religion")
 PTGI_subgroup  %>% 
