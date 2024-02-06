@@ -131,12 +131,6 @@ PTGI_Coping
 PTGI_religion = rma(g ~ `Sprituality/Religion`, vi = v_g, data = PTGI_g)
 PTGI_religion
 
-PTGI_Age = rma(g ~ `Mean Age`, vi = v_g, data = PTGI_g)
-PTGI_Age
-
-PTGI_Gender = rma(g ~ `Male%`, vi = v_g, data = PTGI_g)
-PTGI_Gender
-
 ## making table 4 
 Correlate = c("Anxiety", "Depression", "PTSD", 
               "Social Support", "Coping", "Sprituality/Religion")
@@ -172,10 +166,6 @@ table4_content = data.frame(Correlate, K, N, ES, CI_lower, CI_upper, I2)
 table4_content %>% 
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria")
-
-
-
-
 
 
 
