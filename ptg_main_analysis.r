@@ -103,6 +103,14 @@ PTGI_subgroup  %>%
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria")
 
+## all the risk factors
+study_names = PTGI_subgroup %>% filter(PTSD == 1 | Anxiety == 1 | Depression == 1) %>% 
+  select(Source)
+
+
+sort(substr(study_names$Source,1,1))
+str_rank(substr(study_names$Source,1,1))
+str_order(substr(study_names$Source,1,1))
 ## create tables for main analysis (table 1 in the manuscript)
 PTGI_main_analysis_table = PTGI %>% select(Source, `Publication Year`, 
                                            `sample size`, `Male%`, `Mean Age`,
@@ -166,7 +174,6 @@ table4_content = data.frame(Correlate, K, N, ES, CI_lower, CI_upper, I2)
 table4_content %>% 
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria")
-
 
 
 
