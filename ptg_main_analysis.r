@@ -175,6 +175,7 @@ table4_content %>%
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria")
 
-
+## number of cross-sectional studies
+sum(shortlist$`cross-sectional`)
 
 
