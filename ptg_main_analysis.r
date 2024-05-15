@@ -98,7 +98,9 @@ forest(res, cex=0.7,
 # Source	Year	Sample size	Male,%	Age (mean)	End Point	Follow up, y	Determinant
 PTGI_subgroup = PTGI %>% dplyr::select("Source", "Publication Year", "sample size","Male%", "Mean Age",
                                 "PTSD", "Anxiety", "Depression", "Social Support", "Coping",
-                                "Sprituality/Religion")
+                               "Sprituality/Religion")
+
+## this is table 3
 PTGI_subgroup  %>% 
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria")
@@ -118,6 +120,7 @@ PTGI_main_analysis_table = PTGI %>% select(Source, `Publication Year`,
   mutate(`effect size` = round(`effect size`,2)) %>% 
   mutate(sd = round(sd,2))
 
+## this is table 1
 PTGI_main_analysis_table %>% 
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria")
