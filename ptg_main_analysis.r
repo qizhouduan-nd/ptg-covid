@@ -96,9 +96,10 @@ forest(res, cex=0.7,
 
 ## create tables for subgroup analysis (table 3 in the manuscript)
 # Source	Year	Sample size	Male,%	Age (mean)	End Point	Follow up, y	Determinant
-PTGI_subgroup = PTGI %>% dplyr::select("Source", "Publication Year", "sample size","Male%", "Mean Age",
-                                "PTSD", "Anxiety", "Depression", "Social Support", "Coping",
-                               "Sprituality/Religion")
+PTGI_subgroup = PTGI %>% dplyr::select("Source", "Publication Year", "sample size",
+                                       "Male%", "Mean Age","PTSD", "Anxiety", 
+                                       "Depression", "Social Support", 
+                                       "Coping","Sprituality/Religion")
 
 ## this is table 3
 PTGI_subgroup  %>% 
