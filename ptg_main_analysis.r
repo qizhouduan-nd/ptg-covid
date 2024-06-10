@@ -9,7 +9,7 @@ library(kableExtra)
 setwd(dirname(rstudioapi::documentPath()))
 
 ## load data
-shortlist = read_excel('ptg_shortlist.xlsx')
+shortlist = read_excel('ptg_shortlist_new.xlsx')
 ## look at how many studies uses PTGI
 shortlist %>% group_by(`scale type`) %>% count() # 20 PTGI and 10 PTGI-SF 
 table(shortlist$PTSD)
@@ -18,6 +18,49 @@ table(shortlist$PTSD)
 sum(shortlist$`sample size`) ## overall
 PTGI_dat = shortlist %>% filter(`scale type` == 'PTGI')
 PTGISF_dat = shortlist %>% filter(`scale type` != 'PTGI')
+
+
+new_dat = shortlist[!is.na(as.numeric(shortlist$`effect size`)),]
+new_dat
+
+### start analysis with all the studies (PTGI gets successfully transformed)
+PTGI_num = sum((as.numeric( new_dat$`sample size`) - 1)) * (as.numeric( new_dat$`sample size`) - 1)
+PTGI_denom = sum(as.numeric(new_dat$`sample size`)) - length(as.numeric(new_dat$`sample size`))
+PTGI_sp = PTGI_num / PTGI_denom
+PTGI_pooled_sd = sqrt(PTGI_sp)
+PTGI_pooled_sd
+
+cutoff = 45
+PTGI_g = new_dat %>% 
+  mutate(`sample size` = as.numeric(`sample size`)) %>% 
+  mutate(sd = as.numeric(sd)) %>% 
+  mutate(PTGI_num = (sum(`sample size`) - 1) * sd^2) %>% 
+  mutate(PTGI_denom = sum(`sample size`) - length(`sample size`)) %>% 
+  mutate(PTGI_pooled_sd = sqrt(PTGI_num / PTGI_denom)) %>% 
+  mutate(g = (`effect size` - cutoff) / PTGI_pooled_sd) %>% 
+  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1)))
+
+
+test = new_dat %>% 
+  mutate(`sample size` = as.numeric(`sample size`))%>% 
+  mutate(sd = as.numeric(sd)) %>% 
+  mutate(`effect size` = as.numeric(`effect size`)) %>% 
+  mutate(PTGI_num = (sum(`sample size`) - 1) * sd^2) %>% 
+  mutate(PTGI_denom = sum(`sample size`) - length(`sample size`)) %>% 
+  mutate(PTGI_pooled_sd = sqrt(PTGI_num / PTGI_denom)) %>% 
+  mutate(g = (`effect size` - cutoff) / PTGI_pooled_sd) %>% 
+  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1)))
+  
+View(test)
+test[,c('g', 'v_g')]
+main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = test)
+main_analysis_model_PTGI
+## now we have the ingredient to perform meta analysis
+PTGI_g[,c('g', 'v_g')]
+
+## we run intercept only model for main analysis (this would be random intercept model)
+main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = PTGI_g)
+main_analysis_model_PTGI
 
 ################################################################
 ################################################################
