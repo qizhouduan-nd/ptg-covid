@@ -9,7 +9,7 @@ library(kableExtra)
 setwd(dirname(rstudioapi::documentPath()))
 
 ## load data
-shortlist = read_excel('just_effect_sizes.xlsx')
+shortlist = read_excel('effect_sizes_and_moderators.xlsx')
 ## look at how many studies uses PTGI
 shortlist %>% group_by(`scale type`) %>% count() # 20 PTGI and 10 PTGI-SF 
 
@@ -51,8 +51,55 @@ PTGI_g[,c('g', 'v_g')]
 main_analysis_model_PTGI = rma(g ~ 1, vi = v_g, data = PTGI_g)
 main_analysis_model_PTGI
 
+################################################################
+## Subgroup analysis
+################################################################
+## PTSD 
+PTGI_PTSD = rma(g ~ PTSD, vi = v_g, data = PTGI_g)
+PTGI_PTSD
+### more subgroup analysis
+PTGI_Anxiety = rma(g ~ Anxiety, vi = v_g, data = PTGI_g)
+PTGI_Anxiety
 
-## check a few descriptives
-describe(PTGI_g)
-describe(PTGI_g$g)
+PTGI_Depression = rma(g ~ Depression, vi = v_g, data = PTGI_g)
+PTGI_Depression
+
+PTGI_Support = rma(g ~ `Social Support`, vi = v_g, data = PTGI_g)
+PTGI_Support
+
+PTGI_Coping = rma(g ~ `Coping`, vi = v_g, data = PTGI_g)
+PTGI_Coping
+
+PTGI_religion = rma(g ~ `Sprituality/Religion`, vi = v_g, data = PTGI_g)
+PTGI_religion
+
+### coping and anxiety are significant with coping clearly significant. 
+
+
+
+################################################################
+## Tables and Figures
+################################################################
+## forest plot
+ptsd_sample = PTGI_g %>% filter(`PTSD` == 1) %>% dplyr::select(Source, `sample size`)
+forest(main_analysis_model_PTGI, 
+       header="Author(s) and Year", mlab="", shade=TRUE,
+       cex=0.75)
+
+## create tables for subgroup analysis (table 3 in the manuscript)
+# Source	Year	Sample size	Male,%	Age (mean)	End Point	Follow up, y	Determinant
+PTGI_subgroup = PTGI %>% dplyr::select("Source", "sample size","PTSD", "Anxiety", 
+                                       "Depression", "Social Support", 
+                                       "Coping","Sprituality/Religion")
+## this is table 3
+PTGI_subgroup  %>% 
+  kbl() %>% 
+  kable_classic(full_width = F, html_font = "Cambria")
+
+
+
+
+
+
+
 
