@@ -86,6 +86,16 @@ forest(main_analysis_model_PTGI,
        header="Author(s) and Year", mlab="", shade=TRUE,
        cex=0.75)
 
+## create tables for main analysis (table 1 in the manuscript)
+PTGI_main_analysis_table = PTGI_g %>% dplyr::select(Source, `sample size`, 
+                                           `effect size`, sd) %>% 
+  mutate(`effect size` = round(`effect size`,2)) %>% 
+  mutate(sd = round(sd,2))
+## this is table 1
+PTGI_main_analysis_table %>% 
+  kbl() %>% 
+  kable_classic(full_width = F, html_font = "Cambria")
+
 ## create tables for subgroup analysis (table 3 in the manuscript)
 # Source	Year	Sample size	Male,%	Age (mean)	End Point	Follow up, y	Determinant
 PTGI_subgroup = PTGI %>% dplyr::select("Source", "sample size","PTSD", "Anxiety", 
