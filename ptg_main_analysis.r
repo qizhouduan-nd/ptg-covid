@@ -92,9 +92,26 @@ PTGI_main_analysis_table = PTGI_g %>% dplyr::select(Source, `sample size`,
   mutate(`effect size` = round(`effect size`,2)) %>% 
   mutate(sd = round(sd,2))
 ## this is table 1
-PTGI_main_analysis_table %>% 
+table_1 = PTGI_main_analysis_table %>% 
   kbl() %>% 
-  kable_classic(full_width = F, html_font = "Cambria")
+  kable_classic(full_width = F, html_font = "Cambria") 
+
+table_1 %>% as_image(width = 4)
+
+kable(PTGI_main_analysis_table, 'pdf') %>% as_image(width = 4)
+
+
+library(knitr)
+
+mykable <- kable(matrix(rep(letters,600*8),
+                        nrow = 600,
+                        ncol =8))
+
+library(kableExtra)
+kableExtra::save_kable(x = mykable,
+                       file = "mykable.pdf")
+
+
 
 ## create tables for subgroup analysis (table 3 in the manuscript)
 # Source	Year	Sample size	Male,%	Age (mean)	End Point	Follow up, y	Determinant
