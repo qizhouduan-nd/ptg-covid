@@ -88,13 +88,17 @@ PTGI_g$Source[ifelse(PTGI_g$`Social Support` == 1, TRUE, FALSE)]
 PTGI_Coping = rma(g ~ `Coping`, vi = v_g, data = PTGI_g)
 PTGI_Coping
 
-sum(PTGI_g$`Social Support`)
-sum(PTGI_g$`sample size` * PTGI_g$`Social Support`)
-PTGI_g$Source[ifelse(PTGI_g$`Social Support` == 1, TRUE, FALSE)]
+sum(PTGI_g$`Coping`)
+sum(PTGI_g$`sample size` * PTGI_g$`Coping`)
+PTGI_g$Source[ifelse(PTGI_g$`Coping` == 1, TRUE, FALSE)]
 
 ### religion scales
 PTGI_religion = rma(g ~ `Sprituality/Religion`, vi = v_g, data = PTGI_g)
 PTGI_religion
+
+sum(PTGI_g$`Sprituality/Religion`)
+sum(PTGI_g$`sample size` * PTGI_g$`Sprituality/Religion`)
+PTGI_g$Source[ifelse(PTGI_g$`Sprituality/Religion` == 1, TRUE, FALSE)]
 
 ### coping and anxiety are significant with coping clearly significant. 
 
