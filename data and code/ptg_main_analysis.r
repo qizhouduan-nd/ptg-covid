@@ -58,14 +58,23 @@ main_analysis_model_PTGI
 PTGI_PTSD = rma(g ~ PTSD, vi = v_g, data = PTGI_g)
 PTGI_PTSD
 
-PTGI_g
-
-### more subgroup analysis
+sum(PTGI_g$`sample size` * PTGI_g$PTSD)
+PTGI_g$Source[ifelse(PTGI_g$PTSD == 1, TRUE, FALSE)]
+### Anxiety Scales
 PTGI_Anxiety = rma(g ~ Anxiety, vi = v_g, data = PTGI_g)
 PTGI_Anxiety
 
+sum(PTGI_g$Anxiety)
+sum(PTGI_g$`sample size` * PTGI_g$Anxiety)
+PTGI_g$Source[ifelse(PTGI_g$Anxiety == 1, TRUE, FALSE)]
+
+### Depression Scales
 PTGI_Depression = rma(g ~ Depression, vi = v_g, data = PTGI_g)
 PTGI_Depression
+
+sum(PTGI_g$Anxiety)
+sum(PTGI_g$`sample size` * PTGI_g$Anxiety)
+PTGI_g$Source[ifelse(PTGI_g$Anxiety == 1, TRUE, FALSE)]
 
 PTGI_Support = rma(g ~ `Social Support`, vi = v_g, data = PTGI_g)
 PTGI_Support
