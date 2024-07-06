@@ -57,6 +57,9 @@ main_analysis_model_PTGI
 ## PTSD 
 PTGI_PTSD = rma(g ~ PTSD, vi = v_g, data = PTGI_g)
 PTGI_PTSD
+
+PTGI_g
+
 ### more subgroup analysis
 PTGI_Anxiety = rma(g ~ Anxiety, vi = v_g, data = PTGI_g)
 PTGI_Anxiety
