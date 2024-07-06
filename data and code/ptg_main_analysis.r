@@ -72,16 +72,27 @@ PTGI_g$Source[ifelse(PTGI_g$Anxiety == 1, TRUE, FALSE)]
 PTGI_Depression = rma(g ~ Depression, vi = v_g, data = PTGI_g)
 PTGI_Depression
 
-sum(PTGI_g$Anxiety)
-sum(PTGI_g$`sample size` * PTGI_g$Anxiety)
-PTGI_g$Source[ifelse(PTGI_g$Anxiety == 1, TRUE, FALSE)]
+sum(PTGI_g$Depression)
+sum(PTGI_g$`sample size` * PTGI_g$Depression)
+PTGI_g$Source[ifelse(PTGI_g$Depression == 1, TRUE, FALSE)]
 
+### social support scales
 PTGI_Support = rma(g ~ `Social Support`, vi = v_g, data = PTGI_g)
 PTGI_Support
 
+sum(PTGI_g$`Social Support`)
+sum(PTGI_g$`sample size` * PTGI_g$`Social Support`)
+PTGI_g$Source[ifelse(PTGI_g$`Social Support` == 1, TRUE, FALSE)]
+
+## coping scales
 PTGI_Coping = rma(g ~ `Coping`, vi = v_g, data = PTGI_g)
 PTGI_Coping
 
+sum(PTGI_g$`Social Support`)
+sum(PTGI_g$`sample size` * PTGI_g$`Social Support`)
+PTGI_g$Source[ifelse(PTGI_g$`Social Support` == 1, TRUE, FALSE)]
+
+### religion scales
 PTGI_religion = rma(g ~ `Sprituality/Religion`, vi = v_g, data = PTGI_g)
 PTGI_religion
 
