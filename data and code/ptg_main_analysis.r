@@ -115,28 +115,37 @@ forest(main_analysis_model_PTGI,
 
 ## create tables for main analysis (table 1 in the manuscript)
 PTGI_main_analysis_table = PTGI_g %>% dplyr::select(Source, `sample size`, 
-                                           `effect size`, sd) %>% 
+                                           `effect size`, sd, `Mean Age`, Countries, Groups) %>% 
   mutate(`effect size` = round(`effect size`,2)) %>% 
+  mutate(`Mean Age` = round( as.numeric(`Mean Age`),2)) %>% 
   mutate(sd = round(sd,2))
 ## this is table 1
 table_1 = PTGI_main_analysis_table %>% 
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria") 
 
-table_1 %>% as_image(width = 4)
+# table_1 %>% as_image(width = 4)
 
-kable(PTGI_main_analysis_table, 'pdf') %>% as_image(width = 4)
+PTGI_main_analysis_table[1:40,] %>% 
+  kbl() %>% 
+  kable_classic(full_width = F, html_font = "Cambria") 
+
+PTGI_main_analysis_table[40:75,] %>% 
+  kbl() %>% 
+  kable_classic(full_width = F, html_font = "Cambria") 
+
+# kable(PTGI_main_analysis_table, 'pdf') %>% as_image(width = 4)
 
 
-library(knitr)
+# library(knitr)
+# 
+# mykable <- kable(matrix(rep(letters,600*8),
+#                         nrow = 600,
+#                         ncol =8))
 
-mykable <- kable(matrix(rep(letters,600*8),
-                        nrow = 600,
-                        ncol =8))
-
-library(kableExtra)
-kableExtra::save_kable(x = mykable,
-                       file = "mykable.pdf")
+# library(kableExtra)
+# kableExtra::save_kable(x = mykable,
+#                        file = "mykable.pdf")
 
 
 
@@ -151,8 +160,8 @@ PTGI_subgroup  %>%
   kable_classic(full_width = F, html_font = "Cambria")
 
 
-
-
+## check age range
+range(as.numeric(PTGI_g$`Mean Age`)[!is.na(as.numeric(PTGI_g$`Mean Age`))])
 
 
 
