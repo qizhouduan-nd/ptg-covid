@@ -163,6 +163,6 @@ PTGI_subgroup  %>%
 ## check age range
 range(as.numeric(PTGI_g$`Mean Age`)[!is.na(as.numeric(PTGI_g$`Mean Age`))])
 
-
-
+which(as.numeric(PTGI_g$`Mean Age`) == 16)
+PTGI_g$Source
 
