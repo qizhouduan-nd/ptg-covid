@@ -134,26 +134,17 @@ PTGI_main_analysis_table[40:75,] %>%
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria") 
 
-# kable(PTGI_main_analysis_table, 'pdf') %>% as_image(width = 4)
 
-
-# library(knitr)
-# 
-# mykable <- kable(matrix(rep(letters,600*8),
-#                         nrow = 600,
-#                         ncol =8))
-
-# library(kableExtra)
-# kableExtra::save_kable(x = mykable,
-#                        file = "mykable.pdf")
-
-
-
-## create tables for subgroup analysis (table 3 in the manuscript)
-# Source	Year	Sample size	Male,%	Age (mean)	End Point	Follow up, y	Determinant
-PTGI_subgroup = PTGI %>% dplyr::select("Source", "sample size","PTSD", "Anxiety", 
+## create tables for subgroup analysis (table 3 in the manuscript
+PTGI_subgroup = PTGI %>% dplyr::select("Source","PTSD", "Anxiety", 
                                        "Depression", "Social Support", 
-                                       "Coping","Sprituality/Religion")
+                                       "Coping","Sprituality/Religion") %>% 
+  mutate(PTSD = ifelse(PTSD == 1, '✔', ' ')) %>% 
+  mutate(Anxiety = ifelse(Anxiety == 1, '✔', ' ')) %>%  
+  mutate(Depression = ifelse(Depression == 1, '✔', ' ')) %>% 
+  mutate(`Social Support` = ifelse(`Social Support` == 1, '✔', ' ')) %>% 
+  mutate(Coping = ifelse(Coping == 1, '✔', ' ')) %>% 
+  mutate(`Sprituality/Religion` = ifelse(`Sprituality/Religion` == 1, '✔', ' '))
 ## this is table 3
 PTGI_subgroup  %>% 
   kbl() %>% 
