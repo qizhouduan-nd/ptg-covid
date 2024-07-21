@@ -146,10 +146,13 @@ PTGI_subgroup = PTGI %>% dplyr::select("Source","PTSD", "Anxiety",
   mutate(Coping = ifelse(Coping == 1, '✔', ' ')) %>% 
   mutate(`Sprituality/Religion` = ifelse(`Sprituality/Religion` == 1, '✔', ' '))
 ## this is table 3
-PTGI_subgroup  %>% 
+PTGI_subgroup[1:40, ]  %>% 
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria")
 
+PTGI_subgroup[41:75, ]  %>% 
+  kbl() %>% 
+  kable_classic(full_width = F, html_font = "Cambria")
 
 ## check age range
 range(as.numeric(PTGI_g$`Mean Age`)[!is.na(as.numeric(PTGI_g$`Mean Age`))])
