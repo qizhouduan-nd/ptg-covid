@@ -6,6 +6,7 @@ library(readxl)
 library(metafor)
 library(psych)
 library(kableExtra)
+library(modelsummary)
 setwd(dirname(rstudioapi::documentPath()))
 
 ## load data
@@ -159,4 +160,36 @@ range(as.numeric(PTGI_g$`Mean Age`)[!is.na(as.numeric(PTGI_g$`Mean Age`))])
 
 which(as.numeric(PTGI_g$`Mean Age`) == 16)
 PTGI_g$Source
+
+
+## table 2 
+
+line1 = c(" ", "Estimate", "se", 'Z', 'p', 'CI LB', 'CI UP', ' ')
+line2 = c('Intercept', '1.95', '0.62', '3.16', '0.002', '0.74', '3.16', ' ')
+line3= c(' Heterogeneity Statistics', ' ', ' ', ' ', ' ', ' ', ' ', ' ')
+line4 = c(" ", "Tau", "Tau^2", 'I^2', 'H^2', 'df', 'Q', 'p')
+line5 = c(" ", "5.34", "28.47", '99.99%', '9695', '74', '15829', '< 0.001')
+
+table2 = rbind(c('Random Effects Model (k=75)', ' ', ' ', ' ', ' ', ' ', ' ', ' '),
+               c(" ", "Estimate", "se", 'Z', 'p', 'CI LB', 'CI UP', ' '), 
+               c('Intercept', '1.95', '0.62', '3.16', '0.002', '0.74', '3.16', ' '),
+               c(' Heterogeneity Statistics', ' ', ' ', ' ', ' ', ' ', ' ', ' '),
+               c(" ", "Tau", "Tau^2", 'I^2', 'H^2', 'df', 'Q', 'p'),
+               c(" ", "5.34", "28.47", '99.99%', '9695', '74', '15829', '< 0.001'))
+
+tibble(table2)
+
+x = kbl(table2) %>% kable_classic(full_width = F, html_font = "Cambria") 
+
+row_spec(x,1, hline_after = TRUE)
+
+## table 4
+Correlate = c('Anxiety', 'Depression', 'PTSD', 'Social Support', 'Coping', 'Spirituality')
+K = c(28, 19, 20, 17, 38, 25)
+N = c(19522, 21802, 24033, 20912, 23386, 15263)
+CI_lower = c(-4.83, 0.15, -0.42, -1.61, 0.02, -0.93)
+CI_upper = c(0.13, -4.93, 1.49, 4.24, 4.82, 4.24)
+I2 = c(99.99, 99.99, 99.99, 99.99, 99.99, 99.99)
+
+
 
