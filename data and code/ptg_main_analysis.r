@@ -191,5 +191,5 @@ CI_lower = c(-4.83, 0.15, -0.42, -1.61, 0.02, -0.93)
 CI_upper = c(0.13, -4.93, 1.49, 4.24, 4.82, 4.24)
 I2 = c(99.99, 99.99, 99.99, 99.99, 99.99, 99.99)
 
-
+kbl(data.frame(Correlate, K,N,CI_lower, CI_upper, I2)) %>% kable_classic(full_width = F, html_font = "Cambria") 
 
