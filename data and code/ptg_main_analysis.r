@@ -193,3 +193,32 @@ I2 = c(99.99, 99.99, 99.99, 99.99, 99.99, 99.99)
 
 kbl(data.frame(Correlate, K,N,CI_lower, CI_upper, I2)) %>% kable_classic(full_width = F, html_font = "Cambria") 
 
+
+### subgroup analysis 
+## exploring different population ()
+
+shortlist = read_excel('effect_sizes_and_moderators.xlsx')
+unique(shortlist$Groups)
+shortlist %>% group_by(Groups) %>% 
+  summarise(total_sample_size = sum(`sample size`)) %>% 
+  arrange(desc(total_sample_size))
+
+## meta regression for the chosen groups (explore the first 3 categories with the most sample sizes)
+# nurse
+nurse_ptg = PTGI_g %>% filter(Groups == 'Nurses')
+nurse_model = rma(g ~ 1, vi = v_g, data = nurse_ptg)
+nurse_model
+# General
+general_ptg = PTGI_g %>% filter(Groups == 'General')
+general_model = rma(g ~ 1, vi = v_g, data = general_ptg)
+general_model
+# Patients
+patient_ptg = PTGI_g %>% filter(Groups == 'Patients')
+patient_model = rma(g ~ 1, vi = v_g, data = patient_ptg)
+patient_model
+
+
+
+
+
+
