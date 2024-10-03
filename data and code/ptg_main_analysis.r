@@ -135,6 +135,10 @@ PTGI_main_analysis_table[40:75,] %>%
   kbl() %>% 
   kable_classic(full_width = F, html_font = "Cambria") 
 
+PTGI_main_analysis_table %>% 
+  kbl() %>% 
+  kable_classic(full_width = F, html_font = "Cambria") 
+
 
 ## create tables for subgroup analysis (table 3 in the manuscript
 PTGI_subgroup = PTGI %>% dplyr::select("Source","PTSD", "Anxiety", 
