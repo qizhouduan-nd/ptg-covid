@@ -240,6 +240,61 @@ patient_model = rma(g ~ 1, vi = v_g, data = patient_ptg)
 patient_model
 
 
+shortlist %>% select(Groups == "Medical Doctors" | Groups == "Nurses")
+
+at_risk_group = shortlist$Groups == "Nurses" | shortlist$Groups == "Medical Doctors" |
+  shortlist$Groups == "Front Line worker" | shortlist$Groups == "Health Care Workers" | 
+  shortlist$Groups == "Mturk Worker" | shortlist$Groups == "Patient relatives" 
+
+new_data = shortlist[at_risk_group, ]
+temp_model = rma(g ~ 1, vi = v_g, data = new_data)
+
+### start analysis with all the studies (This is for at risk group)
+PTGI_num = sum((new_data$`sample size` - 1) * new_data$sd^2)
+PTGI_denom = sum(new_data$`sample size`) - length(new_data$`sample size`)
+PTGI_sp = PTGI_num / PTGI_denom
+PTGI_pooled_sd = sqrt(PTGI_sp)
+PTGI_pooled_sd
+
+cutoff = 45
+PTGI_g = new_data %>% 
+  mutate(PTGI_num = (sum(`sample size`) - 1) * sd^2) %>% 
+  mutate(PTGI_denom = sum(`sample size`) - length(`sample size`)) %>% 
+  mutate(PTGI_pooled_sd = sqrt(PTGI_num / PTGI_denom)) %>% 
+  mutate(g = (`effect size` - cutoff) / PTGI_pooled_sd) %>% 
+  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1)))
+
+
+temp_model = rma(g ~ 1, vi = v_g, data = PTGI_g)
+temp_model
+
+
+### now filter students
+student_filter = shortlist$Groups == "Nursing Students" | shortlist$Groups =="PHD Students" |
+  shortlist$Groups =="College Students" | shortlist$Groups =="General students" | 
+  shortlist$Groups =="General Students"
+
+student_data = shortlist[student_filter, ]
+### start analysis with all the studies (This is for at risk group)
+PTGI_num = sum((student_data$`sample size` - 1) * student_data$sd^2)
+PTGI_denom = sum(student_data$`sample size`) - length(student_data$`sample size`)
+PTGI_sp = PTGI_num / PTGI_denom
+PTGI_pooled_sd = sqrt(PTGI_sp)
+PTGI_pooled_sd
+
+cutoff = 45
+PTGI_g = student_data %>% 
+  mutate(PTGI_num = (sum(`sample size`) - 1) * sd^2) %>% 
+  mutate(PTGI_denom = sum(`sample size`) - length(`sample size`)) %>% 
+  mutate(PTGI_pooled_sd = sqrt(PTGI_num / PTGI_denom)) %>% 
+  mutate(g = (`effect size` - cutoff) / PTGI_pooled_sd) %>% 
+  mutate(v_g = 2 * (1 - 0) / (`sample size`) + g^2 / (2 * (`sample size` - 1)))
+
+
+temp_model = rma(g ~ 1, vi = v_g, data = PTGI_g)
+temp_model
+
+
 
 
 
