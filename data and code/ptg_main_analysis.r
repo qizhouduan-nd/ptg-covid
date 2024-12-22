@@ -20,6 +20,8 @@ sum(shortlist$`sample size`) ## overall
 PTGI_dat = shortlist %>% filter(`scale type` == 'PTGI')
 PTGISF_dat = shortlist %>% filter(`scale type` != 'PTGI')
 
+## use escalc function to get effect sizes
+
 ################################################################
 ################################################################
 #### stretch PTGI-SF 
