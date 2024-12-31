@@ -29,7 +29,8 @@ calculate_effect_size = escalc(measure = "SMD",
                                n2i = PTGI_dat$`sample size`,  # Use actual sample sizes
                                data = PTGI_dat, 
                                append = TRUE)
-calculate_effect_size ## noticed some quite high values; this indicates that maybe screening for outlier is needed
+calculate_effect_size ## noticed some quite high values; 
+# this indicates that maybe screening for outlier is needed
 
 ## we run intercept only model for main analysis (this would be random intercept model)
 main_analysis_model_PTGI = rma(yi, vi, data = calculate_effect_size)
@@ -77,5 +78,15 @@ calculate_effect_size_2 <-escalc(measure = "SMD",
                                m2i = second.half$effect.size, 
                                sd2i = second.half$sd,
                                n2i = second.half$sample.size)
+
+
+
+
+
+
+
+
+
+
 
 
