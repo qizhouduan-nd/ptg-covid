@@ -71,19 +71,6 @@ second.half <- data.frame(PTGI_dat[!high_exposure_group,
 new_dat <- cbind(rbind(first.half, second.half),
       exposure = ifelse(high_exposure_group == TRUE, 1, 0))
 
-### in-balanced group
-calculate_effect_size_2 <-escalc(measure = "SMD", 
-                               m1i = first.half$effect.size, 
-                               sd1i = first.half$sd,
-                               n1i = first.half$sample.size, 
-                               m2i = second.half$effect.size, 
-                               sd2i = second.half$sd,
-                               n2i = second.half$sample.size)
-
-
-
-
-
 
 
 
