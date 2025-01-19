@@ -71,10 +71,26 @@ second.half <- data.frame(PTGI_dat[!high_exposure_group,
 new_dat <- cbind(rbind(first.half, second.half),
       exposure = ifelse(high_exposure_group == TRUE, 1, 0))
 
+## find out pattern depending on the regions of the world
+length(unique(PTGI_dat$continents))
 
+library(ggplot2)
 
+ggplot(PTGI_dat, aes(x = `effect size`, fill = continents, color = continents)) +
+  geom_histogram(position = "dodge", 
+                 alpha = 0.6,
+                 binwidth = 5) +
+  geom_density(aes(y = after_stat(count) * 5), # Scale density to match histogram height
+               alpha = 0.4,
+               linewidth = 1) +  # Make density lines thicker
+  theme_minimal() +
+  labs(
+    title = "Distribution by Continent",
+    x = "Effect Size",
+    y = "Count"
+  ) +
+  scale_fill_viridis_d() +
+  scale_color_viridis_d() # Match density line colors with fill colors
 
-
-
-
-
+## there is only one oceania country
+sum(PTGI_dat$continents == 'Oceania')
