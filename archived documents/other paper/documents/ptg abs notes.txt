@@ -1,0 +1,320 @@
+17. perceived posttraumatic growth and its psychological predictors during two consecutive COVID lockdowns 
+
+- PTG, and its potential predictors
+- Greece
+- n = 1361
+- PTG inventory
+- both adaptive and maladaptive cpong strategies predicted PTG during the first lock down 
+but only adatpive cpoing predicted PTG during the second lockdown
+
+
+18. dispositional optimism, stress, posttraumatic stress disorder and post traumatic rowht in Grek general population facing the COVID crisis
+correlation studies were run here 
+also LOT_R and PTG invetory were highlighted
+
+19. PTG in the first COVID outbreak in hongkong 
+two time points
+sense of coherence, 28% reported PTSD and 18% reported PTG at time 2 
+
+20. ptg related to covid among people who lived with psychiatric disorder
+factors associated with ptg were investigated using linear regression
+
+21. positive functioning at work during covid, ptg, resilience and emotional exhaustion in chinese frontline healthcare workers
+logitudianl relationship between resilience and ptg
+job burnout
+4 time pts
+study 2 cross sectional 
+
+22. ptg and its correlation with professional self identity and social support
+correlation with self-identity and social support in chinese nurses who faced covid in 2019
+online survey, n = 266, PTGI, multiple regression 
+
+23. I get by with a little help from my friends: PTG in covid 19 
+perceived social support in omderating psychological distress and ptg during the covid pandemic
+cross sectional data collected
+correlational analysis multiple regression
+age matters
+
+24. is ptg helpful in overocming mentla health disorders due to covid? 
+ptgi administered to 100 adults in south korea
+anxiety and depress decreased and committed action increased with an increase in PTG
+
+25. finding meaning in hell. the role of meaning religiosity and spirituality in ptg during covid in spain. 
+N = 1492 survey 
+N = 1091 residents in Madrid 
+higher value for women for ptg
+religiosity associated with total growth 
+this must have been a multiple regression
+
+26. ptg during covid in carers of children in portugal and uk: cross-sectional online survey 
+ptg, greater appreciation of life, pisitive spiritual change, 
+
+27. ptg during covid 19, large schoepopulation-based study among norwegian adolescents 
+short version of ptg inventory
+multiple regression 
+
+28. ptg and stress related responses during the covid pandemic 
+test a cognitive model of PTS and PTG during confinement casued by covid
+sem was used 
+
+29. racial and socioeconomic status differences in stress ptg and mental health in an older adult cohort during the covid 19 pandemic 
+investigate perceived levels of stress, posttraumatic growth, coping strategies, socioeconimic status and mentl health between black and non hispanic white older adults, the majority over the age of 70. 
+which variable is associated with posttraumatic growth. 
+multiple regression, wilcoxon rank-sum tests, fisher's exact tests
+
+30. finding positive from the covid pandemic: factors associated with posttraumatic growth among ruses in hongkong 
+
+31. ptg and positive determinants in nursing students after covid: a descriptive cros sectional study
+
+32. the traumatic expereince of clinical nurses during the cvoid pandemic: which factor are related to ptg? 
+
+good social support and self-efficacy
+
+33. mental health and its predictors during early months of the covid 19 pandemic experinece in the united states. 
+
+longitudinal examination of the predictors of self reported stress anxiety,depression and ptg for us residents 
+
+
+#################################
+
+
+I am not too familiar with PTG but from what I gathered in the papers, it has five factors: 1) new possibilities, 2) relating to others, 3) personal strength, 4) spiritual change, 5) appreciation of life; But I am not sure whether the composite score of the five dimensions is summed in practice to form a single measure? Is there a good paper from which I could learn more about how the framwork is derived? 
+
+For effect size calculation, we usually use hedge's g, but it would require a single outcome variable. However, it is also possible to use multivariate meta-analysis taking into account multiple effect size measures, in our case, maybe 5 effect size measures reflecting each dimension in PTG. 
+
+In addition, we could use random effects meta-regression to allow for heterogeneity among the studies in our analysis; I think we can consider including variables/moderators such as age, gender, social economic status, time points(some studies have 4 time points, some has 2 time points, and some has only 1 time point), country, forms of PTG. 
+
+
+
+References
+Aloe, A. M., & Becker, B. J. (2009). Teacher verbal ability and school outcomes: Where is the evidence?. Educational Researcher, 38(8), 612-624. https://doi.org/10.3102/0013189X09353939 
+
+
+Bloch, M. H. (2014). Meta-analysis and moderator analysis: can the field develop further?. Journal of the American Academy of Child and Adolescent Psychiatry, 53(2), 135–137. https://doi.org/10.1016/j.jaac.2013.12.001 
+
+
+Cronbach, L. J., & Shapiro, K. (1982). Designing evaluations of educational and social programs. Jossey-Bass.
+
+
+Indiana University School of Education. (2021). The Pandemic and Student Engagement: Trends, Disparities, and Opportunities. National Survey of Student Engagement. https://nsse.indiana.edu/research/annual-results/2021/story1.html#more 
+
+
+National Assessment of Education Progress. (2022). NAEP long-term trend assessment results: Reading and Mathematics. The Nation's Report Card. https://www.nationsreportcard.gov/highlights/ltt/2022/ 
+
+Viechtbauer, W. (2010). Conducting meta-analyses in R with the metafor package. Journal of Statistical Software, 36(3), 1-48. https://doi.org/10.18637/jss.v036.i03 
+
+
+Kuha, J. (2004). AIC and BIC: Comparisons of assumptions and performance. Sociological methods & research, 33(2), 188-229.
+Supplemental Materials
+
+
+
+
+Variables entering sequence: 
+Block 1
+year of publication
+Published in 2020 or after (1 v. 0)
+Block 2
+age group (adolescent) for retrospective study
+age_group_adol1
+age_group_ugrd1
+age_group_grd1
+English Language vs non-english speaking for retrospective study (language_eng1)
+location for retrospective study (country_us1)
+Block 3
+stem vs non-stem course subject for retrospective study (course_subject_stem1)
+Block 4
+affective engagement for retrospective study (engage_a1)
+behavioral engagement for retrospective study (engage_b1)
+cognitive engagement for retrospective study (engage_c1)
+social engagement for retrospective study (engage_s1)
+Block 5
+likert vs non-likert for retrospective study (Likert.or…)
+positive means increasing vs decreasing for retrospective study (Phrased.as.an.Increase.or.Decrease.in.Engagement.)
+
+
+
+Meta-analytic Plan Outline
+Plan to report the main effects for each study type, then conducted moderator analysis using both a confirmatory and exploratory approach
+Confirmatory
+Retrospective
+Pre-post: 2-cohorts 
+Pre-post: 1-cohort
+ Exploratory: stepwise regression
+May only be feasible for the retrospective studies? - see if possible with the other types of study types
+
+
+ we have three variables/moderators selected: 1) Year of publication, 2) age group, and 3) Language. We see a -0.12 standard deviation change if the reported effect sizes are from publications that comes out in 2020 compared to the publications that comes after 2020. In our case, we had years 2020, 2021, 2023. There is also a 0.35 standard deviation decrease in the normalized engagement measure if the subject is an adolescent as opposed to an undergraduate or graduate student. Language of instruction seems to be the most significant moderator that can explain the heterogeneity among studies, we found that students who engage with the courses through English tend to be less engaged than those who use a different language in their classroom setting. 
+ 
+ \subsection{insert table 4 here}
+Again, the estimates are standardized for the stepwise regression as well. According to the backward deletion procedure, we found that the year of publication, age group, and language was also included by the exploratory approach as significant predictors. The forward selection process also highlighted the age group as well as survey wording. 
+Our exploratory approach, especially the backward deletion, provided an overview of how each moderator contributes to explaining the heterogeneity of effect sizes across studies. This helps us to answer our third research question, that is did students who experienced a decrease in engagement differ based on the type of engagement? As we can see from Table 3, cognitive engagement had the greatest negative change compared to other engagement styles suggesting one of the main causes of the pandemic learning loss. 
+1-Cohort/Pre- and Post-
+
+
+
+lettus []
+tomato []
+green onion []
+cabbage []
+almond milk []
+apple []
+beef []
+tofu 2 []
+garlic []
+
+
+#####
+## ptg intro
+post traumatic growth inventory -- a widely used assessment was altered to take into account diverse cultures and religious affiliations. 
+
+
+theoritcal model explaining the rationale behind PTG; 
+English-written self measures assessing PTG (PTGI)
+
+
+for this review, the scope is in well defined research that addresses the current PTG literature. 
+
+- Investigate post tramatic growth and its sub-dimentions 
+- tests and theortical models identified for PTG
+- factors contributing to PTG based on trauma type 
+- qualitative, quantitative and mixed methods for PTG stuides
+- application of PTG in clinical setting
+- post traumatic depreciation following a profoundly important event
+- cultural cross culture focus
+In general. the following criteria for the papers
+- PTG and PTD comparison based on the types, nature, and meanings of speficifc traumatic events
+- PTG-related hypotheses and theories
+- PTG in clincal/theraputic settings
+
+11 papers, 9 of them is original researcvh 
+
+#####
+## meta analysis of observational studies in epidemiology
+#####
+# abstract
+- public health and clinical practice and the explision of information in scientific literature 
+
+- a proposal for reporting 
+
+- so this is some kind of guideline 
+
+- checklist was proposed 
+
+- meta analysis of obserbational studies 
+
+# intro
+- so this is for readers, editors, reviewer rather than for the meta-analyst
+
+- provide a tool for helping to understand and quantify sources of variability in results across studies 
+
+- 27 participants get together and write up a guideline for meta analysis that's suited for readers that are less technical. 
+
+- pooled analysis (what is it?)
+
+- checklist/guideline 
+
+# methods
+- used 32 articles retrieved to generater the conference agenda and set topics of bias, searching and abstracting, heterogeneity, study categorization, and statistical methods. 
+
+- also circulated the checklist for comment to all conference attendees and representatives of several constituecies who would use the checklist
+
+# results
+- reporting background, search strategy, methods, results, discussion, and conclusions (there is a table to show these elements in the paper)
+
+- background: description of study outcomes, type of exposure or intervention used, complete descrription of the study population. heterogeneity of population, for ovservational studies, design, (case-conrtyol vs cohort stdies), and outcome (different studies tielding different relative risks that cannot be acounted for by sampling variation) is expected
+
+- search: should include -- qualification of the searchers, specification of databases used, search strategyt and index term, any special features (explotion), search softrware used, use of hand search and contact with authors, use of materials in languages other than Englishb, use of unpubished material, and excluision criteria used. (the main thing highlighted here, i think is need of transparency in how the search process was conducted, and it gets a bit murky when we deal with datasets, and specific ins and outs of how the data based was acuqire and the operations associated with getting a cleaned data should be stated in the paper)
+
+
+- methods: degree to which coding of data from the articles was specified and objsective, assessment of confounding, stuydy bquality and hetero geneity; use of statistical methods; and display of results (it does not say much about the degree of complexity for the methods)
+
+- thus key compoents of design, rather than aggregate scores themselvesm amy be important; 
+
+- it is recommanded that the reporting of quality scoring if it has been done and also recommend subgroup or sensitivity analysis rather than using quality score as weights in the analysis. (what exactly is sensitivity analysis?)
+
+- in cases when heterogeinity of outcomes is particularlyb problematic, a single summary measure m,ay well be inappropriate. 
+
+analysis that strratify by stduty feature or regression analysis withy designfeatures as predictors can be useful in assessing whether styudy outcomes indeed vary systematicaly witrh these features. 
+
+- investigating heterogenity was a key feature of meta analysis of observational studies of some studies conerned with disease. 
+
+- this section where it talks about latency (i dont get it) --  it could be taling about the latency of the disease. 
+
+- results: use graphs, data visialization
+
+- discussion: talk about bbias, possible association between endometrial cancer and oral contraceptives? but mainly, it seems that they want to address the issue of bias (publcation, or some design flaws in the original studies)
+
+- conclusion: first, alternative explanation should be offered; second, appropriate generalization, third, future directions; fourth, talk about heterogeinity and the need to address it either by more systematic review or by original research; 
+
+
+-- that table would be a concise summary of the whole paper
+
+- the last page is essentially refernecedss 
+
+- write down the table in the notes [done]
+
+so understanding is that I should look at articles in the journals and see which journal is the right one 
+
+so list 7 journals from either psychology or medical field
+and figure out the effect size issue
+I feel this is about 3-4 hours work, and I shall do it today, so that I can continue to work on my own projects in response time models; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
